@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-const Post = ({ title, content }) => {
-  const [reactions, setReactions] = useState(0);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
-  const [showComments, setShowComments] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+const Post = ({ title, content }: { title: string; content: string }) => {
+  const [reactions, setReactions] = useState<number>(0);
+  const [comments, setComments] = useState<string[]>([]);
+  const [newComment, setNewComment] = useState<string>('');
+  const [showComments, setShowComments] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const handleReaction = () => {
     setReactions(reactions + 1);
@@ -21,11 +21,11 @@ const Post = ({ title, content }) => {
     }
   };
 
-  const handleDeleteComment = (index) => {
+  const handleDeleteComment = (index: number) => {
     setComments(prevComments => prevComments.filter((_, i) => i !== index));
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleSubmitComment();
   };
 
@@ -70,6 +70,7 @@ const Post = ({ title, content }) => {
 };
 
 export default Post;
+
 
 
 

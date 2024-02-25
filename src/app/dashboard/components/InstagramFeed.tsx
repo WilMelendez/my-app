@@ -2,10 +2,16 @@
 import { useEffect, useState } from 'react';
 import Post from './Post';
 
+interface InstagramPost {
+  id: string;
+  media_url: string;
+  caption?: string; 
+}
+
 const InstagramFeed = () => {
   const token = "IGQWRNSkljT2hHTmljTTNMUUdPTzA1cVBGQ2RfM0lmaFV5NFkyQjBTaU9xanJaSXdEMjZAfMjJvc2FmeHYwYkJza2M2a3ZAKdFVWM2lwUDdteDFHa1JUaDZA5SUc2ZAW1ocVg2cjAtcWx4X05DRmdhWnNpRmlHbXp4R2sZD";  
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +26,7 @@ const InstagramFeed = () => {
           setError('No hay contenido disponible.');
         }
       } catch (error) {
-        console.error('Error al obtener publicaciones de Instagram:');
+        console.error('Error al obtener publicaciones de Instagram:', error);
         setError("Error al cargar el contenido. Inténtalo de nuevo más tarde.");
       } finally {
         setLoading(false);
@@ -46,7 +52,7 @@ const InstagramFeed = () => {
           <img src={post.media_url} alt={post.caption} className="w-full h-100 object-cover mb-2 rounded-lg" />
           <div className="flex items-center mb-2">
             <img src={post.media_url} alt="User Avatar" className="w-8 h-8 rounded-full mr-2" />
-            <Post className="h-24 w-10" />
+            <Post title="" content="" />
           </div>
         </div>
       ))}

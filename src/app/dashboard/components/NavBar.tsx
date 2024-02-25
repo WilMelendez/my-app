@@ -43,10 +43,10 @@ const NavBar = () => {
   );
 };
 
-const NavigationBarItem = ({ icon }) => (
+const NavigationBarItem = ({ icon }: { icon: string }) => ( 
   <div className="relative flex items-center justify-center">
     {icon === "/feed.png" ? (
-      <a href="#" className="block" onClick={() => window.scrollTo(0, 0)}>
+      <a href="#" title="Feed" className="block" onClick={() => window.scrollTo(0, 0)}>
         <div className="rounded-full bg-gray-900 w-12 h-12 flex items-center justify-center cursor-pointer hover:bg-opacity-50 transition duration-300">
           <Image src={icon} alt="Icon" width={24} height={24} className="text-white" />
         </div>
@@ -60,3 +60,4 @@ const NavigationBarItem = ({ icon }) => (
 );
 
 export default NavBar;
+

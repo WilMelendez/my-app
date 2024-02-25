@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react';
 import firebase from 'firebase/compat/app';
@@ -12,8 +13,8 @@ if (!firebase.apps.length) {
 export default function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [error, setError] = useState<string>('');
+  const [registrationSuccess, setRegistrationSuccess] = useState<boolean>(false);
 
   const handleSignUp = async () => {
     try {
@@ -27,13 +28,13 @@ export default function SignUpForm() {
       setTimeout(() => {
         window.location.href = '/';
       }, 2000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al registrar usuario:', error);
-      setError(error.message);
+      setError(error.message as string);
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => { 
     e.preventDefault();
     handleSignUp();
   };
@@ -48,21 +49,25 @@ export default function SignUpForm() {
         )}
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-200 text-sm font-bold mb-2">Email:</label>
+            <label htmlFor="email" className="block text-gray-200 text-sm font-bold mb-2">Email:</label> 
             <input
               type="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Correo electrónico" 
               className="appearance-none bg-gray-800 bg-opacity-50 border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:bg-gray-700 focus:border-gray-500"
               required
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-200 text-sm font-bold mb-2">Contraseña:</label>
+            <label htmlFor="password" className="block text-gray-200 text-sm font-bold mb-2">Contraseña:</label> 
             <input
               type="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Contraseña" 
               className="appearance-none bg-gray-800 bg-opacity-50 border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:bg-gray-700 focus:border-gray-500"
               required
             />
@@ -81,5 +86,4 @@ export default function SignUpForm() {
     </div>
   );
 }
-
 
